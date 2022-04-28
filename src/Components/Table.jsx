@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  {React,useEffect} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,6 +12,11 @@ import Button from '@mui/material/Button'
 
 
 export default function BasicTable(props) {
+    
+    
+    useEffect(()=>{
+        localStorage.setItem('uploads',JSON.stringify(props.uploads))
+    },[])
   return (
     <TableContainer component={Paper} id="table">
       <Table aria-label="simple table">
@@ -21,6 +26,7 @@ export default function BasicTable(props) {
             <TableCell align="left">Name</TableCell>
             <TableCell align="left">CID&nbsp;</TableCell>
             <TableCell align="left">URL&nbsp;</TableCell>
+            <TableCell align="left">Info&nbsp;</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -34,6 +40,7 @@ export default function BasicTable(props) {
               <TableCell align="left">{upload.name}</TableCell>
               <TableCell align="left">{upload.cid}</TableCell>
               <TableCell align="left"><a href={upload.cidurl} target="_blank"><Button variant="contained">URL</Button></a></TableCell>
+              <TableCell align="left"><Button variant="contained">Info</Button></TableCell>
               
             </TableRow>
           ))}
