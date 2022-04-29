@@ -22,20 +22,21 @@ export default function Main() {
   
   useEffect(()=>{
     console.log(uploads);
-    console.log(totalUploads+">>>>>>>>>>>>>>>>>>>>>");
+    console.log(totalUploads+">>>>>>>>>>>>>>>>>>>>>updated");
     localStorage.setItem('uploads',JSON.stringify(uploads));
   },[uploads]);
   return (
     
-      totalUploads>uploads.length?<div className="flex justify-center items-center h-screen">
+      totalUploads>uploads.length?<div className="flex flex-col justify-center items-center h-screen">
       <CircularProgress/>
+      <p>Generating Hash</p>
       </div>
       :
     
     <div className='flex flex-col items-center main'>
         <ImageUpload createData={createData} setTotalUploads={setTotalUploads} multipleFiles={false}></ImageUpload>
         <ImageUpload createData={createData} setTotalUploads={setTotalUploads} multipleFiles={true}></ImageUpload>
-        <Table uploads={uploads}></Table>
+        <Table uploads={uploads} setUploads={setUploads}></Table>
     </div>
 
 
