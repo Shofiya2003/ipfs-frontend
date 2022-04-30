@@ -111,10 +111,11 @@ export default function ImageUpload(props) {
       />
       <Button
         variant="contained"
-        sx={{ marginRight: "12px" }}
+        sx={{ marginRight: "12px",backgroundColor:"#"}}
         onClick={() => {
           fileButton.current.click();
         }}
+        className="dash-button"
       >
         {multiple ? "Select Files" : "Select Image"}
       </Button>
@@ -131,7 +132,7 @@ export default function ImageUpload(props) {
         style={{ display: "none" }}
       />
 
-      <Button variant="contained" onClick={upload}>
+      <Button variant="contained" onClick={upload} className="dash-button">
         Upload
       </Button>
     </div>
