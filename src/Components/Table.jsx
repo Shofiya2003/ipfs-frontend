@@ -19,6 +19,9 @@ export default function BasicTable(props) {
     const [isAsc,setIsAsc]=useState(true);
     const [open, setOpen] = useState(false);
     const [currentCid,setCurrentCid]=useState();
+    useEffect(()=>{
+      console.log(props.uploads);
+    })
     const handleOpen = () => {
       setOpen(true);
     };
@@ -37,22 +40,11 @@ export default function BasicTable(props) {
       else return 0;
     }
 
-    const sort=(isAsc,uploads)=>{
-      const data=JSON.parse(localStorage.getItem('data')).reverse();
-      localStorage.setItem('data',JSON.stringify(data));
-      return uploads.sort((upload1,upload2)=>{
-        if(isAsc){
-          return sortAsc(upload1,upload2)
-        }else{
-          return sortDesc(upload1,upload2)
-        }
-      })
+    const sort=()=>{
+      const uploads=JSON.parse(localStorage.getItem('uploads')).reverse();
+      localStorage.setItem('uploads',JSON.stringify(uploads));
+      return uploads;
     }
-    useEffect(()=>{
-        localStorage.setItem('uploads',JSON.stringify(props.uploads));
-        
-       
-    },[])
   return (
     <TableContainer component={Paper} id="table">
       <Table aria-label="simple table">
@@ -61,17 +53,15 @@ export default function BasicTable(props) {
             <TableCell>Date {isAsc?<ArrowUpwardIcon onClick={()=>{
               setIsAsc(prev=>{
                 props.setUploads(uploads=>{
-                  return sort(!prev,uploads);
+                  return sort(uploads);
                 });
-                return !prev;
+                return false;
               })
                
             }}/>:<ArrowDownwardIcon onClick={()=>{
               setIsAsc(prev=>{
-                props.setUploads(uploads=>{
-                  return sort(!prev,uploads);
-                });
-                return !prev;
+                props.setUploads(sort());
+                return true;
               })
                
             }}/>}</TableCell>

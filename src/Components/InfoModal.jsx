@@ -4,6 +4,10 @@ import InfoField from "./InfoField";
 import SaveIcon from "@mui/icons-material/Save";
 import UploadIcon from "@mui/icons-material/Upload";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import LanIcon from '@mui/icons-material/Lan';
+
 export default function InfoModal(props) {
   const { handleClose, cid } = props;
   const [data, setData] = useState();
@@ -27,12 +31,12 @@ export default function InfoModal(props) {
       .then((json) => {
         console.log(json.value.pin);
         console.log(json.value)
-        setData(json.value.pin);
+        setData({...json.value.pin,peers:json.value.deals.length});
       });
   };
   return (
     <div className="relative p-4 w-full max-w-md h-full md:h-auto m-auto">
-      <div className="relative bg-white rounded-lg shadow h-64 flex flex-col items-center">
+      <div className="relative bg-white rounded-lg shadow h-80 flex flex-col items-center">
         <button
           type="button"
           className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white mr-3 mt-3.5"
@@ -58,7 +62,7 @@ export default function InfoModal(props) {
               <InfoField
                 heading={"Created At"}
                 value={data.created}
-                icon={<AccessTimeIcon />}
+                icon={<CalendarMonthIcon />}
               />
               <InfoField
                 heading={"Size"}
@@ -68,8 +72,13 @@ export default function InfoModal(props) {
               <InfoField
                 heading={"Status"}
                 value={data.status}
-                icon={<UploadIcon />}
+                icon={data.status==="pinned"?<CheckCircleIcon/>:<AccessTimeIcon />}
               />
+              {data.status==="pinned"?<InfoField
+                heading={"Peers"}
+                value={data.peers}
+                icon={<LanIcon />}
+              />:null}
             </div>
           ) : (
             <CircularProgress />

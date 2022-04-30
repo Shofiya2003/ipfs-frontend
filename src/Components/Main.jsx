@@ -24,12 +24,12 @@ export default function Main() {
     console.log(uploads);
     console.log(totalUploads+">>>>>>>>>>>>>>>>>>>>>updated");
     localStorage.setItem('uploads',JSON.stringify(uploads));
-  },[uploads]);
+  },[totalUploads,uploads]);
   return (
     
       totalUploads>uploads.length?<div className="flex flex-col justify-center items-center h-screen">
       <CircularProgress/>
-      <p>Generating Hash</p>
+      <p>Uploading File</p>
       </div>
       :
     
